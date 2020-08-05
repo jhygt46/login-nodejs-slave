@@ -55,7 +55,7 @@ app.get('/', urlencodedParser, function(req, res){
     
 });
 
-app.get('/search', urlencodedParser, function(req, res){
+app.post('/search', urlencodedParser, function(req, res){
 
     res.setHeader('Content-Type', 'text/plain');
     console.log(req.query.correo);

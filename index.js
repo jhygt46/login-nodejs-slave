@@ -12,7 +12,15 @@ const instance = new MySQLEvents(connection, {
         mysql: true,
     },
 });
-await instance.start();
+instance.start();
+instance.addTrigger({
+    name: 'TEST',
+    expression: '*',
+    statement: MySQLEvents.STATEMENTS.ALL,
+    onEvent: (event) => { // You will receive the events here
+        console.log(event);
+    },
+});
 
 /*
 

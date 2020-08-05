@@ -58,8 +58,8 @@ app.get('/', urlencodedParser, function(req, res){
 app.post('/search', urlencodedParser, function(req, res){
 
     res.setHeader('Content-Type', 'text/plain');
-    console.log(req.query.correo);
-    if(search_mail(req.query.correo)){ 
+    console.log(req.query);
+    if(search_mail("abc@hotmail.com")){ 
         res.end("TRUE");
     }
     res.end("FALSE");

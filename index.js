@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const fs = require("fs");
 
-/*
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({ extended: true });
 var cors = require('cors');
@@ -11,7 +10,7 @@ var cors = require('cors');
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-*/
+
 
 var config = JSON.parse(fs.readFileSync('./config.json'));
 
@@ -44,21 +43,19 @@ app.listen(config.port, () => {
     
 });
 
-app.get('/', function(req, res){
+app.get('/', urlencodedParser, function(req, res){
 
     res.setHeader('Content-Type', 'text/plain');
-    /*
-    for(var i=0, ilen=1000; i<ilen; i++){
+    for(var i=0, ilen=100; i<ilen; i++){
         add_mail(randomMail(), i);
     }
-    */
     console.log("ENTRO");
     res.end("Listo");
     //res.end(JSON.stringify(mails));
     
 });
 
-app.get('/search', function(req, res){
+app.get('/search', urlencodedParser, function(req, res){
 
     res.setHeader('Content-Type', 'text/plain');
     console.log(req.query.correo);

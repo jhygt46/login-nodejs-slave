@@ -1,3 +1,28 @@
+var MySQLEvents = require('mysql-events');
+var dsn = {
+  host:     "localhost",
+  user:     "root",
+  password: "",
+};
+var mysqlEventWatcher = MySQLEvents(dsn);
+var watcher = mysqlEventWatcher.add(
+    'usuarios.table.field.value',
+    function (oldRow, newRow, event) {
+        if (oldRow === null) {
+        //insert code goes here
+        }
+        if (newRow === null) {
+        //delete code goes here
+        }
+        if (oldRow !== null && newRow !== null) {
+        //update code goes here
+        }
+        console.log(event);
+    }, 
+    'match this string or regex'
+);
+
+
 const express = require("express");
 const app = express();
 const fs = require("fs");
@@ -6,11 +31,9 @@ var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({ extended: true });
 var cors = require('cors');
 
-
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 
 var config = JSON.parse(fs.readFileSync('./config.json'));
 
@@ -46,20 +69,20 @@ app.listen(config.port, () => {
 app.get('/', urlencodedParser, function(req, res){
 
     res.setHeader('Content-Type', 'text/plain');
+    res.end("Listo");
+    /*
     for(var i=0, ilen=100; i<ilen; i++){
         add_mail(randomMail(), i);
     }
-    console.log("ENTRO");
-    res.end("Listo");
-    //res.end(JSON.stringify(mails));
+    */
     
 });
 
 app.post('/search', urlencodedParser, function(req, res){
 
     res.setHeader('Content-Type', 'text/plain');
-    console.log(req.body);
-    if(search_mail("abc@hotmail.com")){ 
+    var correo = req.body.correo;
+    if(search_mail(correo)){
         res.end("TRUE");
     }
     res.end("FALSE");

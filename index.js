@@ -6,7 +6,7 @@ var dsn = {
 };
 var mysqlEventWatcher = MySQLEvents(dsn);
 var watcher = mysqlEventWatcher.add(
-    'usuarios.table.field.value',
+    'usuarios.tablename.correo.value',
     function (oldRow, newRow, event) {
         if (oldRow === null) {
         //insert code goes here

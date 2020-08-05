@@ -79,10 +79,11 @@ var mails = {};
 app.listen(config.port, () => {
 
     console.log("El servidor está inicializado en el puerto "+config.port);
+    /*
     program()
         .then(() => console.log('Waiting for database events...'))
         .catch(console.error);
-    
+    */
 });
 
 app.get('/', urlencodedParser, function(req, res){

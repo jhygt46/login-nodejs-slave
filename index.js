@@ -1,4 +1,16 @@
 const mysql = require('mysql');
+
+const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '12345678',
+});
+connection.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+});
+
+/*
 const MySQLEvents = require('@rodrigogs/mysql-events');
 
 const program = async () => {
@@ -7,16 +19,13 @@ const program = async () => {
         user: 'root',
         password: '12345678',
     });
-
     const instance = new MySQLEvents(connection, {
         startAtEnd: true,
         excludedSchemas: {
             mysql: true,
         },
     });
-
     await instance.start();
-
     instance.addTrigger({
         name: 'TEST',
         expression: '*',
@@ -25,12 +34,10 @@ const program = async () => {
             console.log(event);
         },
     })
-  
     instance.on(MySQLEvents.EVENTS.CONNECTION_ERROR, console.error);
     instance.on(MySQLEvents.EVENTS.ZONGJI_ERROR, console.error);
-
 };
-
+*/
 
 const express = require("express");
 const app = express();

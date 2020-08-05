@@ -13,7 +13,7 @@ var event1 = myCon.add(
       console.log(event);
     }
 );
-
+console.log(event1);
 /*
 
 

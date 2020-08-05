@@ -1,7 +1,5 @@
 const mysql = require('mysql');
 const MySQLEvents = require('mysql-events');
-
-
 var dsn = {
     host:     'localhost',
     user:     'root',
@@ -9,12 +7,11 @@ var dsn = {
 };
 var myCon = MySQLEvents(dsn);
 var event1 = myCon.add(
-    'usuarios.tablename.correo.value',
+    'usuarios.tablename',
     function (oldRow, newRow, event) {
       console.log("BUENA");
       console.log(event);
-    }, 
-    'Active'
+    }
 );
 
 /*

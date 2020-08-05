@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const fs = require("fs");
 
+/*
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({ extended: true });
 var cors = require('cors');
@@ -10,7 +11,7 @@ var cors = require('cors');
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
+*/
 
 var config = JSON.parse(fs.readFileSync('./config.json'));
 
@@ -39,11 +40,11 @@ var mails = {};
 
 app.listen(config.port, () => {
 
-    console.log("El servidor está inicializado en el puerto 80");
+    console.log("El servidor está inicializado en el puerto "+config.port);
     
 });
 
-app.get('/', urlencodedParser, function(req, res){
+app.get('/', function(req, res){
 
     res.setHeader('Content-Type', 'text/plain');
     for(var i=0, ilen=1000000; i<ilen; i++){
@@ -54,7 +55,7 @@ app.get('/', urlencodedParser, function(req, res){
     
 });
 
-app.get('/search', urlencodedParser, function(req, res){
+app.get('/search', function(req, res){
 
     res.setHeader('Content-Type', 'text/plain');
     console.log(req.query.correo);

@@ -1,26 +1,38 @@
-var MySQLEvents = require('mysql-events');
-var dsn = {
-  host:     "localhost",
-  user:     "root",
-  password: "",
+const mysql = require('mysql');
+const MySQLEvents = require('@rodrigogs/mysql-events');
+
+const program = async () => {
+  const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+  });
+
+  const instance = new MySQLEvents(connection, {
+    startAtEnd: true,
+    excludedSchemas: {
+      mysql: true,
+    },
+  });
+
+  await instance.start();
+
+  instance.addTrigger({
+    name: 'TEST',
+    expression: '*',
+    statement: MySQLEvents.STATEMENTS.ALL,
+    onEvent: (event) => { // You will receive the events here
+      console.log(event);
+    },
+  });
+  
+  instance.on(MySQLEvents.EVENTS.CONNECTION_ERROR, console.error);
+  instance.on(MySQLEvents.EVENTS.ZONGJI_ERROR, console.error);
 };
-var mysqlEventWatcher = MySQLEvents(dsn);
-var watcher = mysqlEventWatcher.add(
-    'usuarios.tablename.correo.value',
-    function (oldRow, newRow, event) {
-        if (oldRow === null) {
-        //insert code goes here
-        }
-        if (newRow === null) {
-        //delete code goes here
-        }
-        if (oldRow !== null && newRow !== null) {
-        //update code goes here
-        }
-        console.log(event);
-    }, 
-    'match this string or regex'
-);
+
+program()
+  .then(() => console.log('Waiting for database events...'))
+  .catch(console.error);
 
 
 const express = require("express");

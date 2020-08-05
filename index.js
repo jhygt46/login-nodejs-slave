@@ -2,37 +2,34 @@ const mysql = require('mysql');
 const MySQLEvents = require('@rodrigogs/mysql-events');
 
 const program = async () => {
-  const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-  });
+    const connection = mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        password: '',
+    });
 
-  const instance = new MySQLEvents(connection, {
-    startAtEnd: true,
-    excludedSchemas: {
-      mysql: true,
-    },
-  });
+    const instance = new MySQLEvents(connection, {
+        startAtEnd: true,
+        excludedSchemas: {
+            mysql: true,
+        },
+    });
 
-  await instance.start();
+    await instance.start();
 
-  instance.addTrigger({
-    name: 'TEST',
-    expression: '*',
-    statement: MySQLEvents.STATEMENTS.ALL,
-    onEvent: (event) => { // You will receive the events here
-      console.log(event);
-    },
-  });
+    instance.addTrigger({
+        name: 'TEST',
+        expression: '*',
+        statement: MySQLEvents.STATEMENTS.ALL,
+        onEvent: (event) => { // You will receive the events here
+            console.log(event);
+        },
+    })
   
-  instance.on(MySQLEvents.EVENTS.CONNECTION_ERROR, console.error);
-  instance.on(MySQLEvents.EVENTS.ZONGJI_ERROR, console.error);
-};
+    instance.on(MySQLEvents.EVENTS.CONNECTION_ERROR, console.error);
+    instance.on(MySQLEvents.EVENTS.ZONGJI_ERROR, console.error);
 
-program()
-  .then(() => console.log('Waiting for database events...'))
-  .catch(console.error);
+};
 
 
 const express = require("express");
@@ -75,6 +72,9 @@ var mails = {};
 app.listen(config.port, () => {
 
     console.log("El servidor está inicializado en el puerto "+config.port);
+    program()
+        .then(() => console.log('Waiting for database events...'))
+        .catch(console.error);
     
 });
 

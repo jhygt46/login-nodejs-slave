@@ -1,17 +1,21 @@
 const mysql = require('mysql');
+const MySQLEvents = require('@rodrigogs/mysql-events');
 
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '12345678',
 });
-connection.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
+const instance = new MySQLEvents(connection, {
+    startAtEnd: true,
+    excludedSchemas: {
+        mysql: true,
+    },
 });
+await instance.start();
 
 /*
-const MySQLEvents = require('@rodrigogs/mysql-events');
+
 
 const program = async () => {
     const connection = mysql.createConnection({

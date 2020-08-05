@@ -47,9 +47,11 @@ app.listen(config.port, () => {
 app.get('/', function(req, res){
 
     res.setHeader('Content-Type', 'text/plain');
+    /*
     for(var i=0, ilen=1000; i<ilen; i++){
         add_mail(randomMail(), i);
     }
+    */
     console.log("ENTRO");
     res.end("Listo");
     //res.end(JSON.stringify(mails));

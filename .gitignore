@@ -3,6 +3,8 @@ Thumbs.db
 ehthumbs.db
 ehthumbs_vista.db
 
+node_modules/
+
 # Folder config file
 Desktop.ini
 
@@ -21,3 +23,4 @@ $RECYCLE.BIN/
 # =========================
 # Operating System Files
 # =========================
+package-lock.json

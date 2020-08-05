@@ -6,12 +6,7 @@ const connection = mysql.createConnection({
     user: 'root',
     password: '12345678',
 });
-const instance = new MySQLEvents(connection, {
-    startAtEnd: true,
-    excludedSchemas: {
-        mysql: true,
-    },
-});
+const instance = new MySQLEvents(connection);
 instance.start();
 instance.addTrigger({
     name: 'TEST',

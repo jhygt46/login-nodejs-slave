@@ -1,21 +1,21 @@
 const mysql = require('mysql');
 const MySQLEvents = require('@rodrigogs/mysql-events');
 
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '12345678',
-});
-const instance = new MySQLEvents(connection);
-instance.start();
-instance.addTrigger({
-    name: 'TEST',
-    expression: '*',
-    statement: MySQLEvents.STATEMENTS.ALL,
-    onEvent: (event) => { // You will receive the events here
-        console.log(event);
-    },
-});
+
+var dsn = {
+    host:     'localhost',
+    user:     'root',
+    password: '12345678'
+};
+var myCon = MySQLEvents(dsn);
+var event1 = myCon.add(
+    'usuarios.tablename.correo.value',
+    function (oldRow, newRow, event) {
+      console.log("BUENA");
+      console.log(event);
+    }, 
+    'Active'
+);
 
 /*
 

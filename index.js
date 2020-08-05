@@ -1,5 +1,5 @@
 const mysql = require('mysql');
-const MySQLEvents = require('@rodrigogs/mysql-events');
+const MySQLEvents = require('mysql-events');
 
 
 var dsn = {
